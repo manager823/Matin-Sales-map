@@ -25,7 +25,11 @@
     .btn-primary:hover { background: #a50d25; }
     .btn-secondary { background: #2a3a50; color: #e8eaf0; }
     .btn-secondary:hover { background: #374d68; }
-    #map { flex: 1; min-height: 300px; }
+    #map { flex: 1; min-height: 300px; background: #1b2128; }
+    .leaflet-container { background: #1b2128; }
+    .dark-tiles { filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%); }
+    .leaflet-control-attribution { background: rgba(15,25,35,0.8) !important; color: #9aa5b5 !important; }
+    .leaflet-control-attribution a { color: #c8d3e3 !important; }
     .leaflet-popup-content-wrapper { background: #1a2535; border: 1px solid #c8102e; border-radius: 8px; color: #e8eaf0; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
     .leaflet-popup-tip { background: #1a2535; }
     .leaflet-popup-content { margin: 12px 16px; min-width: 200px; }
@@ -110,8 +114,11 @@ ALL_BROKERS.forEach(b => {
 const INITIAL_CENTER = [45.35, -122.65];
 const INITIAL_ZOOM = 10;
 const map = L.map('map').setView(INITIAL_CENTER, INITIAL_ZOOM);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; OpenStreetMap &copy; CARTO', subdomains: 'abcd', maxZoom: 19
+// Free OpenStreetMap tiles (no API key). The 'dark-tiles' class darkens ONLY the background map, not the dots.
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors',
+  maxZoom: 19,
+  className: 'dark-tiles'
 }).addTo(map);
 const layerGroup = L.layerGroup().addTo(map);
 
